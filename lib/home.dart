@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:operacaomatriz/calculos.dart';
+import 'package:operacaomatriz/widgets.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -10,16 +12,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int linhasMatriz1 = 0;
+  int linhasMatriz2 = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          Text('substituir depois'),
+          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
         ],
         title: const Text("Matrizes"),
         leading: Builder(
-          // Usando Builder para garantir o contexto correto
           builder: (context) {
             return IconButton(
               onPressed: () {
@@ -34,20 +38,17 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: Drawer(
-        // Barra lateral expansível
         child: Container(
-          width:
-              MediaQuery.of(context).size.width * 0.5, // Ocupa metade da tela
+          width: MediaQuery.of(context).size.width * 0.5,
           color: Colors.grey[300],
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-              // Alterando o tamanho da área azul no DrawerHeader
               SizedBox(
-                height: 150, // Defina a altura desejada para o DrawerHeader
+                height: 150,
                 child: DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Colors.teal, // Cor azul
+                    color: Colors.teal,
                   ),
                   child: Text(
                     'Menu',
@@ -56,29 +57,41 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 24,
                     ),
                   ),
-                  margin: EdgeInsets.zero, // Remove a margem do DrawerHeader
-                  padding: EdgeInsets.zero, // Remove o padding do DrawerHeader
+                  margin: EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
                 ),
               ),
               ListTile(
                 leading: Icon(Icons.add),
-                title: Text('Ação'),
+                title: Text('Adição'),
                 onTap: () {
-                  Navigator.pop(context); // Fecha o drawer
+                  setState(() {
+                    operacaoSelecionada = 'Adição';
+                  });
+
+                  Navigator.pop(context);
                 },
               ),
               ListTile(
                 leading: Icon(Icons.remove),
                 title: Text('Subtração'),
                 onTap: () {
-                  Navigator.pop(context); // Fecha o drawer
+                  setState(() {
+                    operacaoSelecionada = 'Subtração';
+                  });
+
+                  Navigator.pop(context);
                 },
               ),
               ListTile(
                 leading: Icon(Icons.close),
-                title: Text('multiplicação'),
+                title: Text('Multiplicação'),
                 onTap: () {
-                  Navigator.pop(context); // Fecha o drawer
+                  setState(() {
+                    operacaoSelecionada = 'Multiplicação';
+                  });
+
+                  Navigator.pop(context);
                 },
               ),
               ListTile(
@@ -88,7 +101,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 title: Text('Divisão'),
                 onTap: () {
-                  Navigator.pop(context); // Fecha o drawer
+                  setState(() {
+                    operacaoSelecionada = 'Divisão';
+                  });
+
+                  Navigator.pop(context);
                 },
               ),
             ],
@@ -96,13 +113,93 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Container(
-        color: Colors.blue,
         width: double.infinity,
         height: double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[],
-          ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              operacaoSelecionada,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              "Primeira Matriz",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Container(
+              width: 250,
+              child: CupertinoButton(
+                  color: Colors.blueGrey,
+                  child: Text(matriz1.isEmpty ? 'Adicionar Matriz' : 'Editar'),
+                  onPressed: () async {
+                    await telinha(context, "Matriz 1", true);
+                  }),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+              height: 170,
+              width: 230,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [...Extraimatriz(matriz1)],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              "Segunda Matriz",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Container(
+              width: 250,
+              child: CupertinoButton(
+                  color: Colors.blueGrey,
+                  child: Text(matriz1.isEmpty ? 'Adicionar Matriz' : 'Editar'),
+                  onPressed: () async {
+                    await telinha(context, "Matriz 2", false);
+                  }),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+              height: 170,
+              width: 230,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [...Extraimatriz(matriz2)],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: 250,
+              child: CupertinoButton(
+                child: Text("Calcular"),
+                onPressed: () {},
+                color: Colors.blueGrey,
+              ),
+            )
+          ],
         ),
       ),
     );
