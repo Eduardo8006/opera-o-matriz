@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:operacaomatriz/calculos.dart';
 import 'package:operacaomatriz/home.dart';
+import 'package:flutter/services.dart';
 
 String textoMatriz1 = '';
 String textoMatriz2 = '';
@@ -42,12 +43,15 @@ Future telinha(context, String matrizSelecionada, bool value) {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Container(
+                    alignment: Alignment.center,
                     height: 200,
                     width: 200,
                     decoration:
                         BoxDecoration(border: Border.all(color: Colors.grey)),
                     child: SingleChildScrollView(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           ...geraPalavrasClicaveis(value ? matriz1 : matriz2,
                               value, context, value ? controller1 : controller2)
@@ -62,6 +66,10 @@ Future telinha(context, String matrizSelecionada, bool value) {
                     height: 80,
                     padding: EdgeInsets.fromLTRB(30, 15, 30, 0),
                     child: TextFormField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp(
+                            r'[0-9\s\.\+\-\*/]')), // Permite números e espaços
+                      ],
                       controller: value ? controller1 : controller2,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -79,7 +87,9 @@ Future telinha(context, String matrizSelecionada, bool value) {
 
                         if (valor.isNotEmpty) {
                           List<int> lista = valor
-                              .split(' ')
+                              .split(
+                                ' ',
+                              )
                               .map((data) => int.parse(data))
                               .toList();
 
@@ -89,7 +99,7 @@ Future telinha(context, String matrizSelecionada, bool value) {
                             value
                                 ? matriz1[linhaSelecionada] = lista
                                 : matriz2[linhaSelecionada] = lista;
-                            linhaSelecionada = -1; 
+                            linhaSelecionada = -1;
                           }
                           (value ? controller1 : controller2)
                               .clear(); // Limpa o TextFormField

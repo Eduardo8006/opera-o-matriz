@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:operacaomatriz/calculos.dart';
+import 'package:operacaomatriz/resultado.dart';
 import 'package:operacaomatriz/widgets.dart';
+import 'calculos.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -14,7 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int linhasMatriz1 = 0;
   int linhasMatriz2 = 0;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,11 +149,14 @@ class _HomePageState extends State<HomePage> {
               height: 10,
             ),
             Container(
+              alignment: Alignment.center,
               decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
               height: 170,
               width: 230,
               child: SingleChildScrollView(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [...Extraimatriz(matriz1)],
                 ),
               ),
@@ -179,11 +184,14 @@ class _HomePageState extends State<HomePage> {
               height: 10,
             ),
             Container(
+              alignment: Alignment.center,
               decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
               height: 170,
               width: 230,
               child: SingleChildScrollView(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [...Extraimatriz(matriz2)],
                 ),
               ),
@@ -195,7 +203,9 @@ class _HomePageState extends State<HomePage> {
               width: 250,
               child: CupertinoButton(
                 child: Text("Calcular"),
-                onPressed: () {},
+                onPressed: () {
+                  mostrarResultado(context);
+                },
                 color: Colors.blueGrey,
               ),
             )
