@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matrix2d/matrix2d.dart';
+import 'package:operacaomatriz/resultado.dart';
 import 'package:operacaomatriz/widgets.dart';
 
 Matrix2d m2d = const Matrix2d();
@@ -36,6 +37,29 @@ List adicao() {
   return resultado;
 }
 
+List? verificaOperacao(String operacao) {
+  switch (operacao) {
+    case 'Multiplicação':
+      return multiplicacao();
+
+    case 'Subtração':
+      return subtracao();
+
+    case 'Adição':
+      return adicao();
+
+    case 'Divisão':
+      return divisao();
+    default:
+      return null;
+  }
+}
+
+void mostrarResultado(context) async {
+  List a = await verificaOperacao(operacaoSelecionada)!;
+  Telaresultado(context, a);
+}
+
 List<Widget> Extraimatriz(List matriz) {
   String texto = '';
   List<Widget> widgets = [];
@@ -50,7 +74,7 @@ List<Widget> Extraimatriz(List matriz) {
       widgets.add(
         Text(
           texto,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
         ),
       );
       texto = '';
@@ -72,7 +96,7 @@ List<Widget> geraPalavrasClicaveis(matriz, bool value, BuildContext context,
       widgets.add(InkWell(
           child: Text(
             texto,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
           onTap: () {
             linhaSelecionada = i;
