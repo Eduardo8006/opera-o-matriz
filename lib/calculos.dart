@@ -36,6 +36,17 @@ List adicao() {
   return resultado;
 }
 
+void verificaOperacao(String operacao) {
+  switch (operacao) {
+    case 'Multiplicação':
+      multiplicacao();
+      break;
+    case 'Subtração':
+      break;
+    default:
+  }
+}
+
 List<Widget> Extraimatriz(List matriz) {
   String texto = '';
   List<Widget> widgets = [];
