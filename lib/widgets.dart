@@ -49,8 +49,8 @@ Future telinha(context, String matrizSelecionada, bool value) {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          ...geraPalavrasClicaveis(
-                              (value ? matriz1 : matriz2), value, context)
+                          ...geraPalavrasClicaveis(value ? matriz1 : matriz2,
+                              value, context, value ? controller1 : controller2)
                         ],
                       ),
                     ),
@@ -78,10 +78,21 @@ Future telinha(context, String matrizSelecionada, bool value) {
                         String valor = (value ? controller1 : controller2).text;
 
                         if (valor.isNotEmpty) {
-                          List lista = valor.split(' ');
-                          lista = lista.map((data) => int.parse(data)).toList();
-                          value ? matriz1.add(lista) : matriz2.add(lista);
-                          (value ? controller1 : controller2).text = '';
+                          List<int> lista = valor
+                              .split(' ')
+                              .map((data) => int.parse(data))
+                              .toList();
+
+                          if (linhaSelecionada == -1) {
+                            value ? matriz1.add(lista) : matriz2.add(lista);
+                          } else {
+                            value
+                                ? matriz1[linhaSelecionada] = lista
+                                : matriz2[linhaSelecionada] = lista;
+                            linhaSelecionada = -1; 
+                          }
+                          (value ? controller1 : controller2)
+                              .clear(); // Limpa o TextFormField
 
                           Navigator.pop(context);
                           telinha(context, matrizSelecionada, value);

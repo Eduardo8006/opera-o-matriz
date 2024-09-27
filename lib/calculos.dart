@@ -7,7 +7,7 @@ String operacaoSelecionada = 'Multiplicação';
 List matriz1 = [];
 List matriz2 = [];
 List resultado = [];
-
+int linhaSelecionada = -1;
 void definirMatriz(valor, matriz) {
   valor ? matriz1 : matriz2 = matriz;
 }
@@ -59,17 +59,15 @@ List<Widget> Extraimatriz(List matriz) {
   return widgets;
 }
 
-List<Widget> geraPalavrasClicaveis(matriz, value, context) {
+List<Widget> geraPalavrasClicaveis(matriz, bool value, BuildContext context,
+    TextEditingController controller) {
   String texto = '';
   List<Widget> widgets = [];
   int contador = 0;
-  for (List i in matriz) {
-    for (var j in i) {
-      texto += j.toString() + '   ';
-    }
-    if (texto.isNotEmpty) {
-      texto = texto.substring(0, texto.length - 1);
-    }
+
+  for (int i = 0; i < matriz.length; i++) {
+    texto = matriz[i].join('   ');
+
     if (texto.isNotEmpty) {
       widgets.add(InkWell(
           child: Text(
@@ -77,7 +75,8 @@ List<Widget> geraPalavrasClicaveis(matriz, value, context) {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           onTap: () {
-            (value ? controller1 : controller2).text = texto;
+            linhaSelecionada = i;
+            controller.text = matriz[linhaSelecionada].join(' ');
             Navigator.pop(context);
             telinha(context, (value ? "Matriz 1" : "Matriz 2"), value);
           }));
