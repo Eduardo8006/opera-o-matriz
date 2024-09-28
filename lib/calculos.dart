@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:matrix2d/matrix2d.dart';
 import 'package:operacaomatriz/resultado.dart';
-import 'package:operacaomatriz/widgets.dart';
 
 Matrix2d m2d = const Matrix2d();
 String operacaoSelecionada = 'Multiplicação';
@@ -14,8 +12,9 @@ void definirMatriz(valor, matriz) {
 }
 
 List multiplicacao() {
-  resultado = m2d.dot(matriz1, matriz2);
-
+  if (m2d.shape(matriz1)[1] == m2d.shape(matriz2)[0]) {
+    resultado = m2d.dot(matriz1, matriz2);
+  }
   return resultado;
 }
 
@@ -56,56 +55,18 @@ List? verificaOperacao(String operacao) {
 }
 
 void mostrarResultado(context) async {
-  List a = await verificaOperacao(operacaoSelecionada)!;
-  Telaresultado(context, a);
-}
-
-List<Widget> Extraimatriz(List matriz) {
-  String texto = '';
-  List<Widget> widgets = [];
-  for (List i in matriz) {
-    for (var j in i) {
-      texto += j.toString() + '   ';
+  resultado = [];
+  if (matriz1.isNotEmpty && matriz2.isNotEmpty) {
+    List a = await verificaOperacao(operacaoSelecionada)!;
+    if (a.isEmpty && operacaoSelecionada == 'Multiplicação') {
+      telaErro(
+          "O número de colunas da primeira matriz precisa ser igual ao numero de linhas da segunda para a multiplicação ser possivel!",
+          context);
+    } else if (a.isNotEmpty) {
+      Telaresultado(context, a);
     }
-    if (texto.isNotEmpty) {
-      texto = texto.substring(0, texto.length - 1);
-    }
-    if (texto.isNotEmpty) {
-      widgets.add(
-        Text(
-          texto,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-        ),
-      );
-      texto = '';
-    }
+  } else {
+    telaErro('Você presica preencher as 2 matrizes para efetuar o calculo!',
+        context);
   }
-  return widgets;
-}
-
-List<Widget> geraPalavrasClicaveis(matriz, bool value, BuildContext context,
-    TextEditingController controller) {
-  String texto = '';
-  List<Widget> widgets = [];
-  int contador = 0;
-
-  for (int i = 0; i < matriz.length; i++) {
-    texto = matriz[i].join('   ');
-
-    if (texto.isNotEmpty) {
-      widgets.add(InkWell(
-          child: Text(
-            texto,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-          ),
-          onTap: () {
-            linhaSelecionada = i;
-            controller.text = matriz[linhaSelecionada].join(' ');
-            Navigator.pop(context);
-            telinha(context, (value ? "Matriz 1" : "Matriz 2"), value);
-          }));
-      texto = '';
-    }
-  }
-  return widgets;
 }
