@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:operacaomatriz/calculos.dart';
+import 'package:operacaomatriz/montaMatrizes.dart';
 import 'package:operacaomatriz/widgets.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -14,13 +15,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int linhasMatriz1 = 0;
   int linhasMatriz2 = 0;
-  
+
+  @override
+  void setState(VoidCallback fn) {
+    super.setState(fn);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
         ],
         title: const Text("Matrizes"),
         leading: Builder(
@@ -29,7 +35,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.menu,
                 size: 30,
               ),
@@ -44,12 +50,14 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-              SizedBox(
+              const SizedBox(
                 height: 150,
                 child: DrawerHeader(
                   decoration: BoxDecoration(
                     color: Colors.teal,
                   ),
+                  margin: EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
                   child: Text(
                     'Menu',
                     style: TextStyle(
@@ -57,13 +65,11 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 24,
                     ),
                   ),
-                  margin: EdgeInsets.zero,
-                  padding: EdgeInsets.zero,
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.add),
-                title: Text('Adição'),
+                leading: const Icon(Icons.add),
+                title: const Text('Adição'),
                 onTap: () {
                   setState(() {
                     operacaoSelecionada = 'Adição';
@@ -73,8 +79,8 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.remove),
-                title: Text('Subtração'),
+                leading: const Icon(Icons.remove),
+                title: const Text('Subtração'),
                 onTap: () {
                   setState(() {
                     operacaoSelecionada = 'Subtração';
@@ -84,8 +90,8 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.close),
-                title: Text('Multiplicação'),
+                leading: const Icon(Icons.close),
+                title: const Text('Multiplicação'),
                 onTap: () {
                   setState(() {
                     operacaoSelecionada = 'Multiplicação';
@@ -95,11 +101,11 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   FontAwesomeIcons.divide,
                   size: 19,
                 ),
-                title: Text('Divisão'),
+                title: const Text('Divisão'),
                 onTap: () {
                   setState(() {
                     operacaoSelecionada = 'Divisão';
@@ -112,29 +118,29 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
               operacaoSelecionada,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               "Primeira Matriz",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Container(
+            SizedBox(
               width: 250,
               child: CupertinoButton(
                   color: Colors.blueGrey,
@@ -143,30 +149,33 @@ class _HomePageState extends State<HomePage> {
                     await telinha(context, "Matriz 1", true);
                   }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
+              alignment: Alignment.center,
               decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
               height: 170,
               width: 230,
               child: SingleChildScrollView(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [...Extraimatriz(matriz1)],
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               "Segunda Matriz",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Container(
+            SizedBox(
               width: 250,
               child: CupertinoButton(
                   color: Colors.blueGrey,
@@ -175,28 +184,33 @@ class _HomePageState extends State<HomePage> {
                     await telinha(context, "Matriz 2", false);
                   }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
+              alignment: Alignment.center,
               decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
               height: 170,
               width: 230,
               child: SingleChildScrollView(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [...Extraimatriz(matriz2)],
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Container(
+            SizedBox(
               width: 250,
               child: CupertinoButton(
-                child: Text("Calcular"),
-                onPressed: () {},
+                onPressed: () {
+                  mostrarResultado(context);
+                },
                 color: Colors.blueGrey,
+                child: const Text("Calcular"),
               ),
             )
           ],
