@@ -26,6 +26,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
+          IconButton(
+              onPressed: () {
+                matriz1.clear();
+                matriz2.clear();
+                setState(HomePage.new);
+              },
+              icon: Icon(Icons.replay_outlined)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
         ],
         title: const Text("Matrizes"),
@@ -179,7 +186,7 @@ class _HomePageState extends State<HomePage> {
               width: 250,
               child: CupertinoButton(
                   color: Colors.blueGrey,
-                  child: Text(matriz1.isEmpty ? 'Adicionar Matriz' : 'Editar'),
+                  child: Text(matriz2.isEmpty ? 'Adicionar Matriz' : 'Editar'),
                   onPressed: () async {
                     await telinha(context, "Matriz 2", false);
                   }),
