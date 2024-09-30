@@ -5,6 +5,9 @@ import 'package:operacaomatriz/widgets.dart';
 
 void adicionaItensMatriz(String valor, bool value, context, matrizSelecionada) {
   if (valor.isNotEmpty) {
+    if (valor[valor.length - 1] == ' ') {
+      valor = valor.substring(0, valor.length - 1);
+    }
     List<int> lista = valor
         .split(
           ' ',

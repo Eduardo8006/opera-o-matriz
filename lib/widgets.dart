@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:operacaomatriz/calculos.dart';
 import 'package:flutter/services.dart';
-import 'package:operacaomatriz/montaMatrizes.dart';
+import 'package:operacaomatriz/monta_matrizes.dart';
 
 String textoMatriz1 = '';
 String textoMatriz2 = '';

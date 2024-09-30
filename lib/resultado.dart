@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:operacaomatriz/montaMatrizes.dart';
+import 'package:operacaomatriz/monta_matrizes.dart';
 
 // ignore: non_constant_identifier_names
 Future Telaresultado(context, List a) {
@@ -74,10 +74,10 @@ Future telaErro(String erro, context) {
       builder: (BuildContext context) {
         return Dialog(
             child: Container(
-          margin: EdgeInsets.all(50),
+          margin: const EdgeInsets.all(50),
           child: Text(
             erro,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
           ),
         ));
       });

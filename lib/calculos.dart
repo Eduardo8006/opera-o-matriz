@@ -18,12 +18,6 @@ List multiplicacao() {
   return resultado;
 }
 
-List divisao() {
-  resultado = m2d.division(matriz1, matriz2);
-
-  return resultado;
-}
-
 List subtracao() {
   resultado = m2d.subtraction(matriz1, matriz2);
 
@@ -41,14 +35,11 @@ List? verificaOperacao(String operacao) {
     case 'Multiplicação':
       return multiplicacao();
 
-    case 'Subtração':
-      return subtracao();
-
     case 'Adição':
       return adicao();
 
-    case 'Divisão':
-      return divisao();
+    case 'Subtração':
+      return subtracao();
     default:
       return null;
   }
@@ -57,6 +48,7 @@ List? verificaOperacao(String operacao) {
 void mostrarResultado(context) async {
   resultado = [];
   if (matriz1.isNotEmpty && matriz2.isNotEmpty) {
+    // ignore: await_only_futures
     List a = await verificaOperacao(operacaoSelecionada)!;
     if (a.isEmpty && operacaoSelecionada == 'Multiplicação') {
       telaErro(
