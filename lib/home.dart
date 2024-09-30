@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:operacaomatriz/calculos.dart';
-import 'package:operacaomatriz/montaMatrizes.dart';
+import 'package:operacaomatriz/creditos.dart';
+import 'package:operacaomatriz/monta_matrizes.dart';
 import 'package:operacaomatriz/widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,8 +32,36 @@ class _HomePageState extends State<HomePage> {
                 matriz2.clear();
                 setState(HomePage.new);
               },
-              icon: Icon(Icons.replay_outlined)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+              icon: const Icon(Icons.replay_outlined)),
+          PopupMenuButton<String>(
+              color: Colors.white,
+              padding: const EdgeInsets.all(8),
+              onSelected: (String value) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CreditoPage()),
+                );
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  const PopupMenuItem<String>(
+                    value: '1',
+                    child: Text(
+                      'Sobre',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  const PopupMenuItem<String>(
+                    value: '2',
+                    child: Text(
+                      'Créditos',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  )
+                ];
+              })
         ],
         title: const Text("Matrizes"),
         leading: Builder(
@@ -75,6 +103,17 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               ListTile(
+                leading: const Icon(Icons.close),
+                title: const Text('Multiplicação'),
+                onTap: () {
+                  setState(() {
+                    operacaoSelecionada = 'Multiplicação';
+                  });
+
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
                 leading: const Icon(Icons.add),
                 title: const Text('Adição'),
                 onTap: () {
@@ -91,31 +130,6 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   setState(() {
                     operacaoSelecionada = 'Subtração';
-                  });
-
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.close),
-                title: const Text('Multiplicação'),
-                onTap: () {
-                  setState(() {
-                    operacaoSelecionada = 'Multiplicação';
-                  });
-
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(
-                  FontAwesomeIcons.divide,
-                  size: 19,
-                ),
-                title: const Text('Divisão'),
-                onTap: () {
-                  setState(() {
-                    operacaoSelecionada = 'Divisão';
                   });
 
                   Navigator.pop(context);
@@ -159,18 +173,35 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-              height: 170,
-              width: 230,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [...Extraimatriz(matriz1)],
+            Stack(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.grey)),
+                  height: 170,
+                  width: 230,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [...Extraimatriz(matriz1)],
+                    ),
+                  ),
                 ),
-              ),
+                Positioned(
+                    top: -7,
+                    right: -7,
+                    child: IconButton(
+                      onPressed: () {
+                        matriz1.clear();
+                        setState(HomePage.new);
+                      },
+                      icon: const Icon(Icons.delete_outline),
+                      iconSize: 30,
+                      color: Colors.black54,
+                    ))
+              ],
             ),
             const SizedBox(
               height: 20,
@@ -194,18 +225,35 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-              height: 170,
-              width: 230,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [...Extraimatriz(matriz2)],
+            Stack(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.grey)),
+                  height: 170,
+                  width: 230,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [...Extraimatriz(matriz2)],
+                    ),
+                  ),
                 ),
-              ),
+                Positioned(
+                    top: -7,
+                    right: -7,
+                    child: IconButton(
+                      onPressed: () {
+                        matriz2.clear();
+                        setState(HomePage.new);
+                      },
+                      icon: const Icon(Icons.delete_outline),
+                      iconSize: 30,
+                      color: Colors.black54,
+                    ))
+              ],
             ),
             const SizedBox(
               height: 20,
