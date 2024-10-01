@@ -182,10 +182,14 @@ class _HomePageState extends State<HomePage> {
                   height: 170,
                   width: 230,
                   child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [...Extraimatriz(matriz1)],
+                    scrollDirection: Axis.horizontal,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [...Extraimatriz(matriz1)],
+                      ),
                     ),
                   ),
                 ),
@@ -234,10 +238,14 @@ class _HomePageState extends State<HomePage> {
                   height: 170,
                   width: 230,
                   child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [...Extraimatriz(matriz2)],
+                    scrollDirection: Axis.horizontal,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [...Extraimatriz(matriz2)],
+                      ),
                     ),
                   ),
                 ),
