@@ -39,13 +39,22 @@ Future telinha(context, String matrizSelecionada, bool value) {
                         color: Colors.white,
                         border: Border.all(color: Colors.grey)),
                     child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ...geraPalavrasClicaveis(value ? matriz1 : matriz2,
-                              value, context, value ? controller1 : controller2)
-                        ],
+                      scrollDirection:
+                          Axis.horizontal, // Permite o scroll horizontal
+                      child: SingleChildScrollView(
+                        scrollDirection:
+                            Axis.vertical, // Permite o scroll vertical
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ...geraPalavrasClicaveis(
+                                value ? matriz1 : matriz2,
+                                value,
+                                context,
+                                value ? controller1 : controller2)
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -74,7 +83,8 @@ Future telinha(context, String matrizSelecionada, bool value) {
                   ElevatedButton(
                       onPressed: () {
                         String valor = (value ? controller1 : controller2).text;
-                        adicionaItensMatriz(valor, value, context, matrizSelecionada);
+                        adicionaItensMatriz(
+                            valor, value, context, matrizSelecionada);
                       },
                       child: const Text("proximo")),
                 ],
