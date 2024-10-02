@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:operacaomatriz/calculos.dart';
-import 'package:operacaomatriz/resultado.dart';
-import 'package:operacaomatriz/widgets.dart';
+import 'package:operacaomatriz/calculos/calculos.dart';
+import 'package:operacaomatriz/calculos/resultado.dart';
+import 'package:operacaomatriz/screens/widgets.dart';
 
 void adicionaItensMatriz(String valor, bool value, context, matrizSelecionada) {
   if (valor.isNotEmpty) {
@@ -22,8 +22,18 @@ void adicionaItensMatriz(String valor, bool value, context, matrizSelecionada) {
     }
 
     if (linhaSelecionada == -1) {
+      value
+          ? linhasMatriz1 = matriz1.length + 2
+          : linhasMatriz2 = matriz2.length + 2;
+
       value ? matriz1.add(lista) : matriz2.add(lista);
     } else {
+      value
+          ? linhasMatriz1 = linhaSelecionada
+          : linhasMatriz2 = linhaSelecionada;
+      if ((value ? linhasMatriz1 : linhasMatriz2) == 0) {
+        value ? linhasMatriz1 = 1 : linhasMatriz2 = 1;
+      }
       value
           ? matriz1[linhaSelecionada] = lista
           : matriz2[linhaSelecionada] = lista;
@@ -82,6 +92,9 @@ List<Widget> geraPalavrasClicaveis(matriz, bool value, BuildContext context,
           ),
           onTap: () {
             linhaSelecionada = i;
+            value
+                ? linhasMatriz1 = linhaSelecionada + 1
+                : linhasMatriz2 = linhaSelecionada + 1;
             controller.text = matriz[linhaSelecionada].join(' ');
             Navigator.pop(context);
             telinha(context, (value ? "Matriz 1" : "Matriz 2"), value);

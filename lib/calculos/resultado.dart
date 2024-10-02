@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:operacaomatriz/monta_matrizes.dart';
+import 'package:operacaomatriz/calculos/monta_matrizes.dart';
 
 // ignore: non_constant_identifier_names
 Future Telaresultado(context, List a) {

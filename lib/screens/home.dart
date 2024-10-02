@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:operacaomatriz/calculos.dart';
-import 'package:operacaomatriz/creditos.dart';
-import 'package:operacaomatriz/monta_matrizes.dart';
-import 'package:operacaomatriz/widgets.dart';
+import 'package:operacaomatriz/calculos/calculos.dart';
+import 'package:operacaomatriz/screens/creditos.dart';
+import 'package:operacaomatriz/calculos/monta_matrizes.dart';
+import 'package:operacaomatriz/screens/drawer.dart';
+import 'package:operacaomatriz/screens/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,9 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int linhasMatriz1 = 0;
-  int linhasMatriz2 = 0;
-
   @override
   void setState(VoidCallback fn) {
     super.setState(fn);
@@ -30,6 +28,8 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 matriz1.clear();
                 matriz2.clear();
+                linhasMatriz1 = 1;
+                linhasMatriz2 = 1;
                 setState(HomePage.new);
               },
               icon: const Icon(Icons.replay_outlined)),
@@ -78,67 +78,7 @@ class _HomePageState extends State<HomePage> {
           },
         ),
       ),
-      drawer: Drawer(
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.5,
-          color: Colors.grey[300],
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              const SizedBox(
-                height: 150,
-                child: DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.teal,
-                  ),
-                  margin: EdgeInsets.zero,
-                  padding: EdgeInsets.zero,
-                  child: Text(
-                    'Menu',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.close),
-                title: const Text('Multiplicação'),
-                onTap: () {
-                  setState(() {
-                    operacaoSelecionada = 'Multiplicação';
-                  });
-
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.add),
-                title: const Text('Adição'),
-                onTap: () {
-                  setState(() {
-                    operacaoSelecionada = 'Adição';
-                  });
-
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.remove),
-                title: const Text('Subtração'),
-                onTap: () {
-                  setState(() {
-                    operacaoSelecionada = 'Subtração';
-                  });
-
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: drawer(context),
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -199,6 +139,7 @@ class _HomePageState extends State<HomePage> {
                     child: IconButton(
                       onPressed: () {
                         matriz1.clear();
+                        linhasMatriz1 = 1;
                         setState(HomePage.new);
                       },
                       icon: const Icon(Icons.delete_outline),
@@ -255,6 +196,7 @@ class _HomePageState extends State<HomePage> {
                     child: IconButton(
                       onPressed: () {
                         matriz2.clear();
+                        linhasMatriz2 = 1;
                         setState(HomePage.new);
                       },
                       icon: const Icon(Icons.delete_outline),

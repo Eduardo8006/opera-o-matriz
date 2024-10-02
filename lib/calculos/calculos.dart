@@ -1,12 +1,18 @@
 import 'package:matrix2d/matrix2d.dart';
-import 'package:operacaomatriz/resultado.dart';
+import 'package:operacaomatriz/calculos/resultado.dart';
 
 Matrix2d m2d = const Matrix2d();
 String operacaoSelecionada = 'Multiplicação';
+
 List matriz1 = [];
 List matriz2 = [];
+
 List resultado = [];
 int linhaSelecionada = -1;
+
+int linhasMatriz1 = 1;
+int linhasMatriz2 = 1;
+
 void definirMatriz(valor, matriz) {
   valor ? matriz1 : matriz2 = matriz;
 }
