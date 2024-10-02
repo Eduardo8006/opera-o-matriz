@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:operacaomatriz/calculos.dart';
+import 'package:operacaomatriz/calculos/calculos.dart';
 import 'package:flutter/services.dart';
-import 'package:operacaomatriz/monta_matrizes.dart';
+import 'package:operacaomatriz/calculos/monta_matrizes.dart';
 
 String textoMatriz1 = '';
 String textoMatriz2 = '';
@@ -73,8 +75,8 @@ Future telinha(context, String matrizSelecionada, bool value) {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        label: const Text(
-                          'Linha 0',
+                        label: Text(
+                          'Linha ${(value ? linhasMatriz1 : linhasMatriz2).toString()}',
                           style: TextStyle(color: Colors.black45),
                         ),
                       ),
@@ -91,4 +93,30 @@ Future telinha(context, String matrizSelecionada, bool value) {
               ),
             ));
       });
+}
+
+void showExitConfirmation(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Confirmação'),
+        content: Text('Você tem certeza que deseja sair?'),
+        actions: [
+          TextButton(
+            child: Text('Cancelar'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text('Sair'),
+            onPressed: () {
+              exit(0);
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

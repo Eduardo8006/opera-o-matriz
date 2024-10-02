@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:operacaomatriz/home.dart';
+import 'package:operacaomatriz/screens/home.dart';
 
 void main() {
   runApp(const MyApp());
